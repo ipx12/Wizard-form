@@ -1,0 +1,91 @@
+.capabilities {
+    width: 100%;
+    min-height: 655px;
+    background-color: rgba(231, 240, 255, .2);
+    padding: 65px 100px;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    .column {
+        width: 300px;
+    }
+    .select {
+        &__menu {
+            color: #9BB0CB;
+        }
+        &__clear {
+            &-indicator {
+                position: absolute;
+                right: -35px;
+                top: 50%;
+                transform: translateY(-50%);
+                fill: #9BB0CB;
+            }
+        }
+        &__multi {
+            &-value {
+                color: #9BB0CB;
+                background-color: #E7F0FF;
+                &__label {
+                    color: #9BB0CB;
+                }
+            }
+        }
+        &__indicator {
+            &-separator {
+                display: none;
+            }
+            &__clear {
+                &-indicator {
+                  
+                }
+            }
+        }
+        &__control {
+            width: 300px;
+            min-height: 40px;
+            border: 1px solid #C1CFE0;
+            outline: none;
+            appearance: none;
+            margin-bottom: 24px;
+            outline: none;
+        }
+    }
+    .label {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 16px;
+        color: #657C9A;
+        margin-bottom: 5px;
+        &-mt {
+            margin-top: 180px;
+        }
+    }
+    textarea {
+        width: 300px;
+        height: 100px;
+        padding: 7px 10px;
+    }
+    input[type="checkbox"]{
+        -webkit-appearance: initial;
+        appearance: initial;
+        border: none;
+        position: absolute;
+        width: 13px;
+        height: 13px;
+        border: 1px solid #C1CFE0;
+    }
+    input[type="checkbox"]:checked {
+        background: #4E86E4;
+        border: 3px solid #C1CFE0;
+    }
+    .squaredOne {
+        margin-top: 10px;
+        display: flex;
+        label {
+            margin-left: 20px;
+        }
+    }
+}
