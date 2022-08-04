@@ -1,23 +1,24 @@
 import { Formik, Form, Field, ErrorMessage, useField } from 'formik';
+import TextInput from '../textInput';
 
 import './contacts.scss';
 
-const TextInput = ({label, requaired = false, ...props}) => {
-    const [field, meta] = useField(props);
+// const TextInput = ({label, requaired = false, ...props}) => {
+//     const [field, meta] = useField(props);
 
-    return (
-        <>
-            <div className='label'>
-                <label htmlFor={props.name}>{label}</label>
-                {requaired ? (<span>*</span>) : null}
-            </div>
-            <input {...props} {...field}/>
-            {meta.initialTouched && meta.error ? (
-                <div className='error'>{meta.error}</div>
-            ) : null}
-        </>
-    )
-};
+//     return (
+//         <>
+//             <div className='label'>
+//                 <label htmlFor={props.name}>{label}</label>
+//                 {requaired ? (<span>*</span>) : null}
+//             </div>
+//             <input {...props} {...field}/>
+//             {meta.initialTouched && meta.error ? (
+//                 <div className='error'>{meta.error}</div>
+//             ) : null}
+//         </>
+//     )
+// };
 
 const ContactsForm = () => {
 

@@ -2,10 +2,12 @@
     width: 100%;
     min-height: 655px;
     background-color: rgba(231, 240, 255, .2);
-    padding: 65px 100px;
-    display: flex;
-    justify-content: space-between;
     position: relative;
+    form {
+        padding: 65px 100px;
+        display: flex;
+        justify-content: space-between;
+    }
     .column {
         width: 300px;
     }
@@ -19,7 +21,7 @@
                 right: -35px;
                 top: 50%;
                 transform: translateY(-50%);
-                fill: #9BB0CB;
+                // 
             }
         }
         &__multi {
@@ -29,6 +31,11 @@
                 &__label {
                     color: #9BB0CB;
                 }
+            }
+        }
+        &__indicators {
+            svg {
+                fill: #9BB0CB;
             }
         }
         &__indicator {
@@ -81,7 +88,7 @@
         background: #4E86E4;
         border: 3px solid #C1CFE0;
     }
-    .squaredOne {
+    .checkbox {
         margin-top: 10px;
         display: flex;
         label {

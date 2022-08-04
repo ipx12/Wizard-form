@@ -1,9 +1,10 @@
-import React from 'react';
+import { useState } from 'react';
+import { Formik, Form, Field } from 'formik';
+
 
 import Select from 'react-select';
 
 import './capabilities.scss';
-
 
 
 const options = [
@@ -18,66 +19,84 @@ const options = [
 
 
 const CapabilitiesForm = () => {
+    const [selectedOption, setSelectedOption] = useState(null);
+
     return (
         <div className="container">
             <div className="capabilities">
-                <div className="column">
-                    <div>
-                        <label className='label' htmlFor="skills">Skills</label>
-                    </div>
-                    <Select
-                        name='skills'
-                        closeMenuOnSelect={false}
-                        isMulti
-                        options={options}
-                        className="basic-multi-select"
-                        classNamePrefix="select"
-                        placeholder=''
-                    />
-                    <div className="select">
-                        {/* <CustomClearIndicator/> */}
-                    </div>
-                    <div className='label label-mt'>
-                        <label  htmlFor="area">Additional information</label>
-                    </div>
-                    <textarea
-                        name="area"
-                        id="" cols="30" 
-                        rows="10"
-                        placeholder='Guitar, guitar and guitar again. I’m fall in love with it.'
-                    >
+                <Formik
+                    initialValues={{
+                        checked: [],
+                        skills: [],
+                        area: ''
+                    }}
+                    onSubmit = {values => {
+                        console.log(JSON.stringify(values, null, 2));
+                        console.log(selectedOption)
+                        selectedOption.map(item => console.log(item.value))
 
-                    </textarea>
-                </div>
-                <div className="column">
-                    <div className='label'>My hobbies</div>
-                    <div class="squaredOne">
-                        <input type="checkbox" value="None" id="art" name="art"  />
-                        <label className='label' for="art">Art</label>
-                    </div>
-                    <div class="squaredOne">
-                        <input type="checkbox" value="None" id="sport" name="sport"  />
-                        <label className='label' for="sport">Sport, fitness, aerobica and staff like that</label>
-                    </div>
-                    <div class="squaredOne">
-                        <input type="checkbox" value="None" id="games" name="games"  />
-                        <label className='label' for="games">I just want to play games, I’m not living in this life</label>
-                    </div>
-                    <div class="squaredOne">
-                        <input type="checkbox" value="None" id="nothing" name="nothing"  />
-                        <label className='label' for="nothing">I’m a female... I’m doing nothing. Every day.</label>
-                    </div>
-                    <div class="squaredOne">
-                        <input type="checkbox" value="None" id="guitar" name="guitar"  />
-                        <label className='label' for="guitar">Guitar, guitar and guitar again. I’m fall in love with it.</label>
-                    </div>
-                    <div class="squaredOne">
-                        <input type="checkbox" value="None" id="wtf" name="wtf"  />
-                        <label className='label' for="wtf">WTF is “hobbies”???</label>
-                    </div>
-                    <button className='btn-back'>Back</button>
-					<button className='btn btn-finish' type="submit">Finish</button>
-                </div>
+                    }}
+                >
+                    <Form>
+                        <div className="column">
+                            <div className='label'>
+                                <label htmlFor='skills'>Skills</label>
+                            </div>
+                            <Select
+                                name='skills'
+                                closeMenuOnSelect={false}
+                                isMulti
+                                options={options}
+                                className="basic-multi-select"
+                                classNamePrefix="select"
+                                placeholder=''
+                                onChange={setSelectedOption}
+                            />
+                            <div className="select">
+                            </div>
+                            <div className='label label-mt'>
+                                <label  htmlFor="area">Additional information</label>
+                            </div>
+                            <Field
+                                as="textarea"
+                                name="area"
+                                placeholder='Guitar, guitar and guitar again. I’m fall in love with it.'
+                            >
+                            </Field>
+                        </div>
+                        <div className="column">
+                            <div className='label'>My hobbies</div>
+                            <div role="group" aria-labelledby="checkbox-group">
+                                <div className="checkbox">
+                                    <Field type="checkbox" value="Art" id="art" name="skills"  />
+                                    <label className='label' htmlFor="art">Art</label>
+                                </div>
+                                <div className="checkbox">
+                                    <Field type="checkbox" value="Sport" id="sport" name="skills"  />
+                                    <label className='label' htmlFor="sport">Sport, fitness, aerobica and staff like that</label>
+                                </div>
+                                <div className="checkbox">
+                                    <Field type="checkbox" value="Games" id="games" name="skills"  />
+                                    <label className='label' htmlFor="games">I just want to play games, I’m not living in this life</label>
+                                </div>
+                                <div className="checkbox">
+                                    <Field type="checkbox" value="Nothing" id="nothing" name="skills"  />
+                                    <label className='label' htmlFor="nothing">I’m a female... I’m doing nothing. Every day.</label>
+                                </div>
+                                <div className="checkbox">
+                                    <Field type="checkbox" value="Guitar" id="guitar" name="skills"  />
+                                    <label className='label' htmlFor="guitar">Guitar, guitar and guitar again. I’m fall in love with it.</label>
+                                </div>
+                                <div className="checkbox">
+                                    <Field type="checkbox" value="Wtf" id="wtf" name="skills"  />
+                                    <label className='label' htmlFor="wtf">WTF is “hobbies”???</label>
+                                </div>
+                            </div>
+                            <button className='btn-back'>Back</button>
+                            <button className='btn btn-finish' type="submit">Finish</button>
+                        </div>
+                    </Form>
+                </Formik>
             </div>
         </div>
     )

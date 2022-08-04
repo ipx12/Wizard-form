@@ -2,10 +2,13 @@
     width: 100%;
     min-height: 540px;
     background-color: rgba(231, 240, 255, .2);
-    padding: 65px 100px;
-    display: flex;
-    justify-content: space-between;
     position: relative;
+    padding: 65px 100px;
+    form {
+        display: flex;
+        justify-content: space-between;
+
+    }
 
     &-photo {
         display: flex;
@@ -15,6 +18,7 @@
         img {
             width: 170px;
             height: 170px;
+            border-radius: 100%;
         }
         span {
             margin-top: 14px;
@@ -22,14 +26,19 @@
             font-size: 14px;
             line-height: 16px;
             color: #9BB0CB;
+            input {
+                display: none;
+            }
         }
     }
     input {
+        position: relative;
         width: 400px;
         height: 40px;
         border: 1px solid #A1C4FF;
         outline: none;
         padding: 12px 10px;
+
     }
     .label {
         font-family: 'Roboto';
@@ -38,18 +47,12 @@
         font-size: 14px;
         line-height: 16px;
         color: #657C9A;
+        margin-top: 24px;
         margin-bottom: 5px;
     }
     .input-item{
         margin-bottom: 24px;
     }
-    .required {
-        position: absolute;
-        padding-left: 10px;
-        font-weight: 400;
-        font-size: 9px;
-        line-height: 11px;
-        color: #EB5757;
-    }
+
 
 }
