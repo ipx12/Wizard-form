@@ -1,5 +1,7 @@
 import avatar from '../../../resources/img/avatar.svg'
-import { set, get } from '../../../store/idbStore';
+import { formsSet } from '../../../store/idbStore';
+import { selectAll, changeActiveForm } from '../../pages/AddingNewUser/addingNewUserSlice';
+import { useDispatch } from 'react-redux';
 import * as yup from 'yup';
 
 import './accaunt.scss'
@@ -11,6 +13,7 @@ import TextInput from '../textInput';
 const AccauntForm = () => {
 
 	const [photo, setPhoto] = useState(null);
+	const dispatch = useDispatch()
 
 	// useEffect(() => {
 	// 	showPhoto();
@@ -21,6 +24,28 @@ const AccauntForm = () => {
 	// 		.then(res => setPhoto(res.photo))
 	// 		.catch(e => console.log(e))
 	// }
+
+
+	const SUPORTED_FORMATS = ["image/jpg", "image/jpeg", "image/png"]
+
+	const schema = yup.object({
+		photoData: yup.mixed()
+					.test(
+						"FILE_SIZE",
+						"Photo size must be less 1mb",
+						(value) => !value || (value && value.size <= 1024 * 1024)
+					)
+					.test(
+						"FILE_FORMAT",
+						"Wrong photo format",
+						(value) => !value || (value && SUPORTED_FORMATS.includes(value?.type))
+					),
+		userName: yup.string()
+					.required(),
+		password: yup.string()
+					.required(),
+					
+	})
 
 	return (
 		<>
@@ -34,22 +59,28 @@ const AccauntForm = () => {
 							photo: '',
 							photoData: ''
 						}}
-						validationSchema = {yup.object({
-							userName: yup.string()
-									.min(2, "Минимум 2 символа!")
-									.required('Обязательное поле'),
-
-						})}
+						validationSchema = {schema}
 						onSubmit = {(values, actions) => {
-							set('accaunt', values);
-							actions.resetForm();
-							console.log(actions)
+							if (values.password !== values.repeatPassword) {
+								actions.setFieldError('repeatPassword', `Password don't mutch`)
+							} else {
+								formsSet	('accaunt', values);
+								dispatch(changeActiveForm('profile'));
+								actions.resetForm();
+							}
+
 						}}
 						>
-						{({values, setFieldValue }) => (
+						{({setFieldValue, errors}) => (
 							<Form>
 								<div className="accaunt-photo">
-										<img src={photo || avatar} alt="avatar" />
+										<div className='accaunt-photo-img'>
+											<img 
+												src={photo || avatar} 
+												alt="avatar" 
+												style={errors.photoData ? {border: '2px solid #EB5757'} : null}
+											/>
+										</div>
 										<span>
 											<input
 												type='file'
@@ -64,13 +95,16 @@ const AccauntForm = () => {
 													if (fileReader.readyState === 2) {
 														setFieldValue('photo', fileReader.result);
 														setFieldValue('photoData', e.target.files[0])
-														setPhoto(fileReader.result);	
+														setPhoto(fileReader.result);
 													}
 													};
 													fileReader.readAsDataURL(e.target.files[0]);
 												}}
 											/>
-											<label htmlFor="file">+ add avatar</label>
+											<label className='add' htmlFor="file">+ add avatar</label>
+											{errors.photoData ? (
+												<div className='error' style={{padding: 0, fontSize: '13px'}}>{errors.photoData}</div>
+											) : null}
 										</span>
 										
 								</div>
@@ -80,18 +114,23 @@ const AccauntForm = () => {
 											id="userName"
 											name="userName"
 											type="text"
+											autoComplete="off"
 										/>
 										<TextInput
 											label="Password"
 											id="password"
 											name="password"
 											type="text"
+											passwordToggle={true}
+											autoComplete="off"
 										/>
 										<TextInput
 											label="Repeat Password"
 											id="repeatPassword"
 											name="repeatPassword"
-											type="repeatPassword"
+											type="text"
+											passwordToggle={true}
+											autoComplete="off"
 										/>
 									<button className='btn btn-next' type="submit">Forward</button>
 								</div>

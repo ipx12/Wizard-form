@@ -18,10 +18,11 @@
         outline: none;
         padding: 10px 10px;
         appearance: none;
-        margin-bottom: 24px;
+
 
     }
     .label {
+        margin-top: 24px;
         width: 300px;
         display: flex;
         justify-content: space-between;
@@ -45,9 +46,99 @@
         font-size: 14px;
         line-height: 16px;
         color: #9BB0CB;
+        cursor: pointer;
+        &:hover {
+            opacity: 0.5;
+        }
+
     }
     .no_mb{
         margin-bottom: 0;
     }
+    .phone__block {
+        position: relative;
+        &-delete {
+            width: 15px;
+            height: 15px;
+            position: absolute;
+            right: -30px;
+            top: 65px;
+            cursor: pointer;
+            div {
+                width: 10px;
+                height: 2px;
+                background-color: #9BB0CB;
+
+                &:hover {
+                    opacity: 0.5;
+                }
+        
+
+            }
+        }
+    }
+
+    .basic-select {
+        width: 300px;
+    }
+    .select {
+        &__control {
+            width: 300px;
+            height: 40px;
+            border: 1px solid #A1C4FF;
+            outline: none;
+            appearance: none;
+            position: relative;
+        }
+        &__menu {
+            color: #9BB0CB;
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 16px;
+            ::-webkit-scrollbar {
+                width: 4px;
+            }
+              
+            ::-webkit-scrollbar-track {
+                // background: orange;        /* цвет зоны отслеживания */
+            }
+              
+            ::-webkit-scrollbar-thumb {
+                background-color: #E7F0FF;    /* цвет бегунка */
+                border-radius: 20px;       /* округлось бегунка */
+                // border: 3px solid orange;  /* отступ вокруг бегунка */
+            }
+        }
+        &__indicators {
+            display: none;
+        }
+        &__input {
+            &-container {
+                position: absolute;
+            }
+        }
+        &__value {
+            &-container {
+                position: static;
+            }
+        }
+    }
+
 
 }
+
+.select::-webkit-scrollbar {
+    width: 12px;               /* ширина всей полосы прокрутки */
+  }
+  
+  .select::-webkit-scrollbar-track {
+    background: orange;        /* цвет зоны отслеживания */
+  }
+  
+  .select::-webkit-scrollbar-thumb {
+    background-color: blue;    /* цвет бегунка */
+    border-radius: 20px;       /* округлось бегунка */
+    border: 3px solid orange;  /* отступ вокруг бегунка */
+  }

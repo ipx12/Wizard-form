@@ -1,26 +1,109 @@
-import { Formik, Form, Field, ErrorMessage, useField } from 'formik';
+import { useState, useEffect } from 'react';
+import { Formik, Form, Field } from 'formik';
+import { useDispatch } from 'react-redux';
+import { changeActiveForm } from '../../pages/AddingNewUser/addingNewUserSlice';
+
+import { formsSet, formsDel} from '../../../store/idbStore';
+
+
+import * as yup from 'yup';
+
+
+import Select from 'react-select';
 import TextInput from '../textInput';
+import { v4 as uuidv4 } from 'uuid';
 
 import './contacts.scss';
 
-// const TextInput = ({label, requaired = false, ...props}) => {
-//     const [field, meta] = useField(props);
+const options = {
+    "en": "English",
+    "fr": "French",
+    "es": "Spanish",
+    "ar": "Arabic",
+    "cmn": "Mandarin",
+    "ru": "Russian",
+    "pt": "Portuguese",
+    "de": "German",
+    "ja": "Japanese",
+    "hi": "Hindi",
+    "ms": "Malay",
+    "fa": "Persian",
+    "sw": "Swahili",
+    "ta": "Tamil",
+    "it": "Italian",
+    "nl": "Dutch",
+    "bn": "Bengali",
+    "tr": "Turkish",
+    "vi": "Vietnamese",
+    "pl": "Polish",
+    "jv": "Javanese",
+    "pa": "Punjabi",
+    "th": "Thai",
+    "ko": "Korean"
+}
 
-//     return (
-//         <>
-//             <div className='label'>
-//                 <label htmlFor={props.name}>{label}</label>
-//                 {requaired ? (<span>*</span>) : null}
-//             </div>
-//             <input {...props} {...field}/>
-//             {meta.initialTouched && meta.error ? (
-//                 <div className='error'>{meta.error}</div>
-//             ) : null}
-//         </>
-//     )
-// };
+const languges = []
+
+for (let key in options) {
+    languges.push({
+        value: key,
+        label: options[key]
+    })
+}
+
+const schema = yup.object({
+    company: yup.string()
+                .required(),
+    github: yup.string(),
+    facebook: yup.string(),
+    languge: yup.string()
+                .required(),
+    phone1: yup.string()
+})
+
+
+const mask = '+38 (099) 999-99-99'
 
 const ContactsForm = () => {
+
+    const [phoneAmount, setPhoneAmount] = useState(1);
+    const dispatch = useDispatch();
+
+
+    const createPhoneNumber = (times) => {
+        const id = uuidv4();
+    
+        const arr = [];
+
+        for (let i = 0; i < times; i++) {
+            arr.push('stucture')
+        }
+    
+        const phone = arr.map((i, index) => {
+            return (
+                <div key={index} className='phone__block'>
+                    <TextInput
+                        placeholder={'+38 (066) 888 88 88'}
+                        label={`Phone#${index + 1}`}
+                        name={`phone${index + 1}`}
+                        type="phone"
+                        mask={mask}
+                    />
+                    <div style={phoneAmount > 1 ? {display: 'block'} : {display: 'none'} } className='phone__block-delete'
+                        onClick={() => {
+                            setPhoneAmount(phoneAmount - 1);
+                        }}
+                    >
+                        <div></div>
+                    </div>
+                </div>
+            )
+        })
+        
+        return phone
+    }
+
+    const telephones = createPhoneNumber(phoneAmount)
 
 
     return (
@@ -32,80 +115,86 @@ const ContactsForm = () => {
                         github: '',
                         facebook: '',
                         fax: '',
+                        languge: '',
                         phone1: '',
-                        phone2: ''
+                        phone2: '',
+                        phone3: ''
 
-                     }}
-                    onSubmit={ values => {
-                        setTimeout(() => {
-                        console.log(JSON.stringify(values, null, 2));
-                        }, 400);
+                    }}
+                    validationSchema = {schema}
+                    onSubmit={ (values, actions) => {
+                        formsSet('contacts', values);
+                        dispatch(changeActiveForm('capabilities'));
+						actions.resetForm();
                     }}
                     >
-                    <Form>
-                        <div className="wrapper">
-                            <div className="column">
-                                <TextInput
-                                    label="Company"
-                                    name="company"
-                                    type="text"
+                    {({setFieldValue, errors, values, touched}) => (
+                        <Form>
+                            <div className="wrapper">
+                                <div className="column">
+                                    <TextInput
+                                        label="Company"
+                                        name="company"
+                                        type="text"
+                                        />
+                                    <TextInput
+                                        requaired={true}
+                                        label="Github link"
+                                        name="github"
+                                        type="text"
                                     />
-                                <TextInput
-                                    requaired={true}
-                                    label="Github link"
-                                    name="github"
-                                    type="text"
-                                />
-                                <TextInput
-                                    requaired={true}
-                                    label="Facebook link"
-                                    name="facebook"
-                                    type="text"
-                                />
-                                <div className='label'>
-                                    <label htmlFor='language'>Main language</label>
+                                    <TextInput
+                                        requaired={true}
+                                        label="Facebook link"
+                                        name="facebook"
+                                        type="text"
+                                    />
+                                    <div className='label'>
+                                        <label htmlFor='language'>Main language</label>
+                                    </div>
+                                    <Select
+                                        name='languge'
+                                        options={languges}
+                                        className="basic-select"
+                                        classNamePrefix="select"
+                                        placeholder='En'
+                                        onChange={(e) => {
+                                            setFieldValue('languge', e.value)
+                                        }}
+                                    />
+                                    {errors.languge && touched.languge ? (
+                                            <div className='error'>{errors.languge}</div>
+                                        ) : null}
                                 </div>
-                                <Field
-                                    id="language"
-                                    name="language"
-                                    as='select'>
-                                        <option value="">Eng</option>
-                                        <option value="English USA">English USA</option>
-                                        <option value="English UK">English UK</option>
-                                        <option value="English UK">English UK</option>
-                                        <option value="English UK">English UK</option>
-                                        <option value="English UK">English UK</option>
-                                        <option value="English UK">English UK</option>
-                                </Field>
-
-
+                                <div className="column right">
+                                    <TextInput
+                                        requaired={true}
+                                        label="Fax"
+                                        name="fax"
+                                        type="text"
+                                    />
+                                    {telephones}
+                                    <div className='add' onClick={() => {
+                                        if (phoneAmount < 3) {
+                                            setPhoneAmount(() => phoneAmount + 1);
+                                            console.log(values)
+                                        }
+                                    }}>+ add phone number</div>
+                                    <button 
+                                        type='button'
+                                        className='btn-back'
+                                        onClick={() => {
+                                            formsDel('contacts')
+                                            dispatch(changeActiveForm('profile'))
+                                        }}
+                                    >
+                                        Back
+                                    </button>
+                                    <button className='btn' type="submit">Forward</button>
+                                </div>
                             </div>
-                            <div className="column right">
-                                <TextInput
-                                    requaired={true}
-                                    label="Fax"
-                                    name="fax"
-                                    type="text"
-                                />
-                                <TextInput
-                                    placeholder={'+38 (066) 888 88 88'}
-                                    label="Phone #1"
-                                    name="Phone1"
-                                    type="phone"
-                                />
-                                <TextInput
-                                    className='no_mb'
-                                    label="Phone #2"
-                                    name="Phone2"
-                                    type="phone"
-                                />
-                                <div className='add'>+ add phone number</div>
-                                <button className='btn-back'>Back</button>
-						        <button className='btn' type="submit">Forward</button>
-                            </div>
-                        </div>
-                    </Form>
-                    
+                        </Form>
+                    )}
                 </Formik>
             </div>
         </div>

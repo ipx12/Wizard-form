@@ -10,16 +10,9 @@
     .users {
         display: flex;
         justify-content: space-between;
-            font-family: 'Roboto';
-            font-style: normal;
-            font-weight: 500;
-            font-size: 14px;
-            line-height: 16px;
-            color: #fff;
         &-list{
             padding-left: 80px;
             position: relative;
-
             img {
                 position: absolute;
                 left: 58px;
@@ -33,6 +26,19 @@
                 left: -25px;
                 top: -3px;
             }
+        }
+        span {
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 16px;
+            color: #fff;
+        }
+        a {
+            text-decoration: none;
+            opacity: 0.4;
+
         }
 
     }

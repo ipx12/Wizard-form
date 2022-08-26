@@ -15,9 +15,11 @@
         flex-direction: column;
         align-items: center;
         margin-top: 18px;
+        width: 170px;
         img {
-            width: 170px;
-            height: 170px;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
             border-radius: 100%;
         }
         span {
@@ -30,6 +32,10 @@
                 display: none;
             }
         }
+        &-img {
+            width: 170px;
+            height: 170px;
+        }
     }
     input {
         position: relative;
@@ -41,6 +47,7 @@
 
     }
     .label {
+        position: relative;
         font-family: 'Roboto';
         font-style: normal;
         font-weight: 400;
@@ -52,6 +59,21 @@
     }
     .input-item{
         margin-bottom: 24px;
+    }
+    .eye {
+        position: absolute;
+        z-index: 2;
+        right: 15px;
+        bottom: -35px;
+        width: 15px;
+        height: 15px;
+        cursor: pointer;
+    }
+    .add {
+        cursor: pointer;
+        &:hover {
+            opacity: 0.5;
+        }
     }
 
 

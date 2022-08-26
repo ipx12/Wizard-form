@@ -36,11 +36,12 @@
     padding: 0 24px;
     z-index: 1;
     &-text{
-        a{
+        span{
             padding-left: 10px;
             text-decoration: none;
             color: #fff;
             font-weight: 900;
+            cursor: pointer;
         }
     }
     &-close {

@@ -27,6 +27,9 @@
         bottom: 65px;
         right: 300px;
         color: #FFFFFF;
+        &:hover {
+            opacity: 0.6;
+        }
     }
     &-finish {
         background: #4EE4A5;
