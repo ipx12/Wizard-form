@@ -60,7 +60,7 @@ const {actions} = userSlice;
 
 export default userSlice.reducer;
 
-export const {selectAll} = usersAdapter.getSelectors(state => state.users)
+export const {selectAll} = usersAdapter.getSelectors(state => state.users);
 
 export const {changeActiveForm} = actions;
 

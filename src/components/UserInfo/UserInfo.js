@@ -1,3 +1,7 @@
+import { useParams } from "react-router-dom"
+import { selectAll } from "../pages/AddingNewUser/addingNewUserSlice";
+import { useSelector } from "react-redux";
+
 
 import photo from '../../resources/img/bigphoto.png';
 import edit from '../../resources/icons/Edit_dark.png';
@@ -5,12 +9,17 @@ import edit from '../../resources/icons/Edit_dark.png';
 import './userInfo.scss';
 
 const UserInfo = () => {
+    const {userId} = useParams();
+    const user = useSelector(selectAll).filter(user => user.id === userId)[0];
+
+    console.log(user)
+
     return (
         <div className="container">
             <div className="info">
                 <div className="info__photo">
                     <div className="info__photo-item">
-                        <img src={photo} alt="img" />
+                        <img src={user?.photo ? user?.photo : photo} alt="img" />
                     </div>
                 </div>
                 <div className="info__data">
@@ -25,11 +34,11 @@ const UserInfo = () => {
                         <div className="wrapper">
                             <div className="flex">
                                 <div className="item">User name:</div>
-                                <div className="value">username</div>
+                                <div className="value">{user?.userName}</div>
                             </div>
                             <div className="flex">
                                 <div className="item">password</div>
-                                <div className="value">******</div>
+                                <div className="value">{'*'.repeat(user?.password.length)}</div>
                             </div>
                         </div>
                     </div>
@@ -44,23 +53,23 @@ const UserInfo = () => {
                         <div className="wrapper">
                             <div className="flex">
                                 <div className="item">First name:</div>
-                                <div className="value">Maxim</div>
+                                <div className="value">{user?.firstName}</div>
                             </div>
                             <div className="flex">
                                 <div className="item">Last name:</div>
-                                <div className="value">Morozov</div>
+                                <div className="value">{user?.lastName}</div>
                             </div>
                             <div className="flex">
                                 <div className="item">Birth date:</div>
-                                <div className="value">13.11.1997</div>
+                                <div className="value">{user?.birthday}</div>
                             </div>
                             <div className="flex">
                                 <div className="item">Email:</div>
-                                <div className="value">my_email@gmail.com</div>
+                                <div className="value">{user?.email}</div>
                             </div>
                             <div className="flex">
                                 <div className="item">Adress:</div>
-                                <div className="value">Street TRUE, 130, 12</div>
+                                <div className="value">{user?.addres}</div>
                             </div>
                         </div>
                     </div>
@@ -75,24 +84,32 @@ const UserInfo = () => {
                         <div className="wrapper">
                             <div className="flex">
                                 <div className="item">Company:</div>
-                                <div className="value">Company name</div>
+                                <div className="value">{user?.company}</div>
                             </div>
                             <div className="flex">
                                 <div className="item">Fax:</div>
-                                <div className="value">asd123dsf</div>
+                                <div className="value">{user?.fax}</div>
                             </div>
                             <div className="flex">
                                 <div className="item">Facebook Link:</div>
-                                <div className="value">facebook.com/</div>
+                                <div className="value">{user?.facebook}</div>
                             </div>
                             <div className="flex">
                                 <div className="item">Phone #1:</div>
-                                <div className="value">+38 (066) 123 123 11</div>
+                                <div className="value">{user?.phone1}</div>
                             </div>
-                            <div className="flex">
-                                <div className="item">Phone #2:</div>
-                                <div className="value">+38 (066) 123 123 11</div>
-                            </div>
+                            {user?.phone2 ? (
+                                <div className="flex">
+                                    <div className="item">Phone #2:</div>
+                                    <div className="value">{user?.phone2}</div>
+                                </div>
+                            ) : null}
+                            {user?.phone3 ? (
+                                <div className="flex">
+                                    <div className="item">Phone #3:</div>
+                                    <div className="value">{user?.phone3}</div>
+                                </div>
+                            ) : null}
                         </div>
                     </div>
 
@@ -106,11 +123,11 @@ const UserInfo = () => {
                         <div className="wrapper">
                             <div className="flex">
                                 <div className="item">Skills:</div>
-                                <div className="value">Skill 1, Skill 2, Skill 3, Skill 4, Skill 5, Skill 6, Skill 7, Skill 8</div>
+                                <div className="value">{user?.skills.join(', ')}</div>
                             </div>
                             <div className="flex">
                                 <div className="item">Hobies:</div>
-                                <div className="value">Sport, fitness, aerobica and staff like that <br/><br/>   I just want to play games, I’m not living in this life</div>
+                                <div className="value">{user?.hobbies.join('\n,  ')}</div>
                             </div>
                         </div>
                     </div>

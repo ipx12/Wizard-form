@@ -1,7 +1,7 @@
 import { Formik, Form, Field } from 'formik';
 import * as yup from 'yup';
 import { formsSet, formsClear } from '../../../store/idbStore';
-import { getAllFormsValues, changeActiveForm } from '../../pages/AddingNewUser/addingNewUserSlice';
+import { getAllFormsValues, changeActiveForm, getAllUsers } from '../../pages/AddingNewUser/addingNewUserSlice';
 
 import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
@@ -74,6 +74,7 @@ const CapabilitiesForm = () => {
                         formsClear();
                         navigate('/');
                         dispatch(changeActiveForm('accaunt'));
+                        // dispatch(getAllUsers());
                     }}
                 >
                     {({setFieldValue, errors, touched}) => (
@@ -116,23 +117,23 @@ const CapabilitiesForm = () => {
                                         <label className='label' htmlFor="art">Art</label>
                                     </div>
                                     <div className="checkbox">
-                                        <Field type="checkbox" value="Sport" id="sport" name="hobbies"  />
+                                        <Field type="checkbox" value="Sport, fitness, aerobica and staff like that" id="sport" name="hobbies"  />
                                         <label className='label' htmlFor="sport">Sport, fitness, aerobica and staff like that</label>
                                     </div>
                                     <div className="checkbox">
-                                        <Field type="checkbox" value="Games" id="games" name="hobbies"  />
+                                        <Field type="checkbox" value="I just want to play games, I’m not living in this life" id="games" name="hobbies"  />
                                         <label className='label' htmlFor="games">I just want to play games, I’m not living in this life</label>
                                     </div>
                                     <div className="checkbox">
-                                        <Field type="checkbox" value="Nothing" id="nothing" name="hobbies"  />
+                                        <Field type="checkbox" value="I’m a female... I’m doing nothing. Every day." id="nothing" name="hobbies"  />
                                         <label className='label' htmlFor="nothing">I’m a female... I’m doing nothing. Every day.</label>
                                     </div>
                                     <div className="checkbox">
-                                        <Field type="checkbox" value="Guitar" id="guitar" name="hobbies"  />
+                                        <Field type="checkbox" value="Guitar, guitar and guitar again. I’m fall in love with it." id="guitar" name="hobbies"  />
                                         <label className='label' htmlFor="guitar">Guitar, guitar and guitar again. I’m fall in love with it.</label>
                                     </div>
                                     <div className="checkbox">
-                                        <Field type="checkbox" value="Wtf" id="wtf" name="hobbies"  />
+                                        <Field type="checkbox" value="WTF is “hobbies”???" id="wtf" name="hobbies"  />
                                         <label className='label' htmlFor="wtf">WTF is “hobbies”???</label>
                                     </div>
                                 </div>

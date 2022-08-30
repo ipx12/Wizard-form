@@ -19,19 +19,18 @@ const ListOfUsers = () => {
     const users = useSelector(selectAll)
 
     const spinnerStyle = {
-        position: 'absolute',
-        left: '50%',
-        top: '80px'
+        display: 'block',
+        margin: '80px auto 0 auto',
     }
 
     useEffect(() => {
         dispatch(getAllUsers())
     },[])
 
-    console.log(users)
+    // console.log(users)
 
     const listOfUsers = () => {
-        const returnedUsers = []
+        let returnedUsers = []
 
         if (users.length !== 0) {
             returnedUsers = users.map((user) => {
@@ -40,7 +39,7 @@ const ListOfUsers = () => {
                         <td>
                             <div className="wrapper">
                                 <div className='table-photo'>
-                                    <img src={user.photo === '' ? photo : user.photo} alt="photo" />
+                                    <img src={user.photo ? user.photo : photo} alt="photo" />
                                 </div>
                                 <div className="table__user">
                                     <div className="table__user-name">{user.firstName}</div>
@@ -49,12 +48,12 @@ const ListOfUsers = () => {
                             </div>
                         </td>
                         <td>{user.company}</td>
-                        <td>{user.email}</td>
+                        <td>{user.phone1 !== '' ? user.phone1 : user.email}</td>
                         <td className='upd'>
                             <div>3 month ago</div>
                             <div className="btns">
                                 <div className="btns-edit">
-                                    <Link to="/useredit">
+                                    <Link to={`/useredit/${user.id}`}>
                                         <img src={edit} alt="edit" />
                                     </Link>
                                 </div>
@@ -69,8 +68,8 @@ const ListOfUsers = () => {
         } else {
             return (
                 <tr>
-                    <td colSpan={4}>
-                        <div className="table-nouser">No users here :(</div>
+                    <td colSpan={4} className="table__nouser">
+                        <div className="table__nouser-title">No users here :(</div>
                         <Link to="/useradd">
                             <div className="table-create">Create new user</div>
                         </Link>
@@ -82,7 +81,19 @@ const ListOfUsers = () => {
         return returnedUsers
     }
 
-    const renderElements = loadingStatus === 'loading' ? <ClipLoader cssOverride={spinnerStyle}/> : listOfUsers();
+    const Clip = () => {
+        return (
+            <tr>
+                <td colSpan={4}>
+                    <ClipLoader cssOverride={spinnerStyle}/>
+                </td>
+            </tr>
+        )
+    }
+
+
+    const renderElements = loadingStatus === 'loading' ? Clip() : listOfUsers();
+
 
     return (
         <div className="container">

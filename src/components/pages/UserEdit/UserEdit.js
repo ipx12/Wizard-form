@@ -1,9 +1,9 @@
+
 import Header from "../../Header/Header"
 import UserInfo from "../../UserInfo/UserInfo"
 
-
-
 const UserEdit = () => {
+
     return (
         <>
             <Header/>
