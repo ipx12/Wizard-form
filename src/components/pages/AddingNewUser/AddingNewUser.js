@@ -7,7 +7,6 @@ import FormStage from "../../FormStage/FormStage";
 import Header from "../../Header/Header"
 import CapabilitiesForm from '../../Forms/Capabilities/Capabilities';
 
-import './addingNewUser.scss';
 
 const AddingNewUser = () => {
 

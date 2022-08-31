@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react';
-import { Formik, Form, Field } from 'formik';
-import { useDispatch } from 'react-redux';
-import { changeActiveForm } from '../../pages/AddingNewUser/addingNewUserSlice';
+import { useState } from 'react';
+import { Formik, Form } from 'formik';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeActiveForm, updateUser, onUserEdit } from '../../pages/AddingNewUser/addingNewUserSlice';
+import { useNavigate } from 'react-router-dom';
 
-import { formsSet, formsDel} from '../../../store/idbStore';
+import { formsSet, formsDel, usersSet} from '../../../store/idbStore';
 
 
 import * as yup from 'yup';
@@ -66,8 +67,25 @@ const mask = '+38 (099) 999-99-99'
 
 const ContactsForm = () => {
 
+    const {editingUser} = useSelector(state => state.users);
+    const isUserEdit = JSON.stringify(editingUser) !== '{}';
+    const navigate = useNavigate();
+
     const [phoneAmount, setPhoneAmount] = useState(1);
     const dispatch = useDispatch();
+
+    const standartFormValue = { 
+        company: '', 
+        github: '',
+        facebook: '',
+        fax: '',
+        languge: '',
+        phone1: '',
+        phone2: '',
+        phone3: ''
+    }
+
+	const initialValues = isUserEdit ? editingUser : standartFormValue
 
 
     const createPhoneNumber = (times) => {
@@ -110,22 +128,19 @@ const ContactsForm = () => {
         <div className="container">
             <div className="contacts">
                 <Formik
-                    initialValues={{ 
-                        company: '', 
-                        github: '',
-                        facebook: '',
-                        fax: '',
-                        languge: '',
-                        phone1: '',
-                        phone2: '',
-                        phone3: ''
-
-                    }}
+                    initialValues={initialValues}
                     validationSchema = {schema}
                     onSubmit={ (values, actions) => {
-                        formsSet('contacts', values);
-                        dispatch(changeActiveForm('capabilities'));
-						actions.resetForm();
+                        if(isUserEdit) {
+                            usersSet(values.id, values)
+                            dispatch(updateUser(values));
+                            dispatch(onUserEdit({}));
+                            navigate('/');
+                        } else {
+                            formsSet('contacts', values);
+                            dispatch(changeActiveForm('capabilities'));
+                            actions.resetForm();
+                        }
                     }}
                     >
                     {({setFieldValue, errors, values, touched}) => (
@@ -181,6 +196,7 @@ const ContactsForm = () => {
                                         }
                                     }}>+ add phone number</div>
                                     <button 
+                                        hidden={isUserEdit}
                                         type='button'
                                         className='btn-back'
                                         onClick={() => {
@@ -190,7 +206,7 @@ const ContactsForm = () => {
                                     >
                                         Back
                                     </button>
-                                    <button className='btn' type="submit">Forward</button>
+                                    <button className='btn' type="submit">{isUserEdit ? 'Save' : 'Forward'}</button>
                                 </div>
                             </div>
                         </Form>

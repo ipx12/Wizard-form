@@ -7,11 +7,13 @@ import {
 
 import AccauntList from '../pages/AccountList/AccountList';
 import AddingNewUser from '../pages/AddingNewUser/AddingNewUser';
-import UserEdit from '../pages/UserEdit/UserEdit';
+import UserData from '../pages/UserData/UserData';
+import UserEdit from "../pages/UserEdit/UserEdit";
 
 
 import '../../style/style.scss';
 import '../../style/buttons.scss';
+
 
 function App() {
 	return (
@@ -19,7 +21,8 @@ function App() {
 				<Routes>
 					<Route path="/" element={<AccauntList />}/>
 					<Route path="/useradd" element={<AddingNewUser />}/>
-					<Route path="/useredit/:userId" element={<UserEdit />}/>
+					<Route path="/userdata/:userId" element={<UserData />}/>
+					<Route path="/useredit/:formName" element={<UserEdit />}/>
 				</Routes>
 		</BrowserRouter>
 

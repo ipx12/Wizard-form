@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom"
-import { selectAll } from "../pages/AddingNewUser/addingNewUserSlice";
-import { useSelector } from "react-redux";
+import { selectAll, onUserEdit } from "../pages/AddingNewUser/addingNewUserSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 
 import photo from '../../resources/img/bigphoto.png';
@@ -11,12 +12,18 @@ import './userInfo.scss';
 const UserInfo = () => {
     const {userId} = useParams();
     const user = useSelector(selectAll).filter(user => user.id === userId)[0];
+    const dispatch = useDispatch();
 
-    console.log(user)
+    const onUserUpdate = (user) => {
+        dispatch(onUserEdit(user));
+    }
 
     return (
         <div className="container">
             <div className="info">
+                <div className="back">
+                    <Link to='/'>  &lt; <span>Users List</span> </Link>
+                </div>
                 <div className="info__photo">
                     <div className="info__photo-item">
                         <img src={user?.photo ? user?.photo : photo} alt="img" />
@@ -28,7 +35,10 @@ const UserInfo = () => {
                         <div className="info__data__block__link">
                             <div>Accaunt</div>
                             <div className="info__data__block__link-icon">
-                                <img src={edit} alt="edit" />
+                                <Link to={`/useredit/accaunt`}
+                                        onClick={() => onUserUpdate(user)}>
+                                    <img src={edit} alt="edit" />
+                                </Link>
                             </div>
                         </div>
                         <div className="wrapper">
@@ -47,7 +57,10 @@ const UserInfo = () => {
                         <div className="info__data__block__link">
                             <div>Personal</div>
                             <div className="info__data__block__link-icon">
-                                <img src={edit} alt="edit" />
+                                <Link to={`/useredit/profile`}
+                                        onClick={() => onUserUpdate(user)}>
+                                    <img src={edit} alt="edit" />
+                                </Link>
                             </div>
                         </div>
                         <div className="wrapper">
@@ -78,7 +91,10 @@ const UserInfo = () => {
                         <div className="info__data__block__link">
                             <div>Contacts</div>
                             <div className="info__data__block__link-icon">
-                                <img src={edit} alt="edit" />
+                                <Link to={`/useredit/contacts`}
+                                        onClick={() => onUserUpdate(user)}>
+                                    <img src={edit} alt="edit" />
+                                </Link>
                             </div>
                         </div>
                         <div className="wrapper">
@@ -117,7 +133,10 @@ const UserInfo = () => {
                         <div className="info__data__block__link">
                             <div>Capabilities</div>
                             <div className="info__data__block__link-icon">
-                                <img src={edit} alt="edit" />
+                                <Link to={`/useredit/capabilities`}
+                                        onClick={() => onUserUpdate(user)}>
+                                    <img src={edit} alt="edit" />
+                                </Link>
                             </div>
                         </div>
                         <div className="wrapper">

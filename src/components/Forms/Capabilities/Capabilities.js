@@ -1,9 +1,9 @@
 import { Formik, Form, Field } from 'formik';
 import * as yup from 'yup';
-import { formsSet, formsClear } from '../../../store/idbStore';
-import { getAllFormsValues, changeActiveForm, getAllUsers } from '../../pages/AddingNewUser/addingNewUserSlice';
+import { formsSet, formsClear, usersSet } from '../../../store/idbStore';
+import { getAllFormsValues, changeActiveForm, updateUser, onUserEdit } from '../../pages/AddingNewUser/addingNewUserSlice';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 
 
@@ -54,27 +54,38 @@ const schema = yup.object({
 const CapabilitiesForm = () => {
 
     const navigate = useNavigate();
-
     const dispatch = useDispatch();
+
+    const {editingUser} = useSelector(state => state.users);
+
+    const isUserEdit = JSON.stringify(editingUser) !== '{}';
+
+	const standartFormValue = {
+        hobbies: [],
+        skills: [],
+        area: ''
+    }
+	const initialValues = isUserEdit ? editingUser : standartFormValue
 
     return (
         <div className="container">
             <div className="capabilities">
                 <Formik
-                    initialValues={{
-                        hobbies: [],
-                        skills: [],
-                        area: ''
-                    }}
+                    initialValues={initialValues}
                     validationSchema={schema}
                     onSubmit = {(values, actions) => {
-                        formsSet('capabilities', values);
-                        dispatch(getAllFormsValues());
-                        actions.resetForm();
-                        formsClear();
+                        if(isUserEdit) {
+                                usersSet(values.id, values)
+								dispatch(updateUser(values));
+                                dispatch(onUserEdit({}));
+                        } else {
+                            formsSet('capabilities', values);
+                            dispatch(getAllFormsValues());
+                            actions.resetForm();
+                            formsClear();
+                            dispatch(changeActiveForm('accaunt'));
+                        }
                         navigate('/');
-                        dispatch(changeActiveForm('accaunt'));
-                        // dispatch(getAllUsers());
                     }}
                 >
                     {({setFieldValue, errors, touched}) => (
@@ -138,6 +149,7 @@ const CapabilitiesForm = () => {
                                     </div>
                                 </div>
                                 <button 
+                                    hidden={isUserEdit}
                                     type='button'
 									className='btn-back'
 									onClick={() => {
@@ -146,7 +158,10 @@ const CapabilitiesForm = () => {
 								>
 									Back
 								</button>
-                                <button className='btn btn-finish' type="submit">Finish</button>
+                                <button className='btn btn-finish' 
+                                        type="submit"
+                                        style={{background: '#5E97F3'}}
+                                        >{isUserEdit ? 'Save' : 'Forward'}</button>
                             </div>
                         </Form>
                     )}

@@ -53,7 +53,7 @@ const ListOfUsers = () => {
                             <div>3 month ago</div>
                             <div className="btns">
                                 <div className="btns-edit">
-                                    <Link to={`/useredit/${user.id}`}>
+                                    <Link to={`/userdata/${user.id}`}>
                                         <img src={edit} alt="edit" />
                                     </Link>
                                 </div>

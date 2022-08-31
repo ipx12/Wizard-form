@@ -1,12 +1,14 @@
 import { createSlice, createAsyncThunk, createEntityAdapter } from "@reduxjs/toolkit";
 import { formsValues, usersSet, usersValues } from "../../../store/idbStore";
 
+
 const usersAdapter = createEntityAdapter();
 
 const initialState = usersAdapter.getInitialState({
         activeForm: 'accaunt',
         formLoadingStatus: 'idle',
         usersLoadingStatus: 'idle',
+        editingUser: {},
 });
 
 export const getAllFormsValues = createAsyncThunk(
@@ -29,7 +31,15 @@ const userSlice = createSlice({
     reducers: {
         changeActiveForm: (state, actions) => {
             state.activeForm = actions.payload;
+        },
+        onUserEdit: (state, action) => {
+            state.editingUser = action.payload;
+        },
+        updateUser: (state, action) => {
+            usersAdapter.setOne(state, action.payload)
         }
+
+        
     },
     extraReducers: (builder) => {
         builder
@@ -37,13 +47,13 @@ const userSlice = createSlice({
             .addCase(getAllFormsValues.fulfilled, (state, action) => {
                 state.formLoadingStatus = 'idle';
                 usersAdapter.setOne(state, createUser(action.payload));
-                usersSet(action.payload[0].userName, createUser(action.payload))
+                usersSet(action.payload[0].id, createUser(action.payload))
             })
             .addCase(getAllFormsValues.rejected, state => {state.formLoadingStatus = 'error'})
             .addCase(getAllUsers.pending, state => {state.usersLoadingStatus = 'loading'})
             .addCase(getAllUsers.fulfilled, (state, action) => {
                 state.usersLoadingStatus = 'idle';
-                usersAdapter.setAll(state, action.payload);
+                usersAdapter.addMany(state, action.payload);
             })
             .addCase(getAllUsers.rejected, state => {state.usersLoadingStatus = 'error'})
             .addDefaultCase(() => {})
@@ -51,7 +61,7 @@ const userSlice = createSlice({
 })
 
 const createUser = (formsData) => {
-    let user = {id: formsData[0].userName}
+    let user = {}
     formsData.forEach(form => user = {...user, ...form})
     return user;
 }
@@ -62,5 +72,9 @@ export default userSlice.reducer;
 
 export const {selectAll} = usersAdapter.getSelectors(state => state.users);
 
-export const {changeActiveForm} = actions;
+export const {
+                changeActiveForm, 
+                onUserEdit,
+                updateUser,
+            } = actions;
 

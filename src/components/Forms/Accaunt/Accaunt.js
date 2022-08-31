@@ -1,30 +1,36 @@
 import avatar from '../../../resources/img/avatar.svg'
-import { formsSet } from '../../../store/idbStore';
-import { selectAll, changeActiveForm } from '../../pages/AddingNewUser/addingNewUserSlice';
-import { useDispatch } from 'react-redux';
+import { formsSet, usersSet } from '../../../store/idbStore';
+import { changeActiveForm, onUserEdit, updateUser } from '../../pages/AddingNewUser/addingNewUserSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
+import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 
 import './accaunt.scss'
 
-import React, { useEffect, useState } from 'react';
-import { Formik, Form, Field, ErrorMessage, useField } from 'formik';
+import React, {  useState } from 'react';
+import { Formik, Form} from 'formik';
 import TextInput from '../textInput';
 
 const AccauntForm = () => {
 
+	const navigate = useNavigate();
+
 	const [photo, setPhoto] = useState(null);
-	const dispatch = useDispatch()
+	const dispatch = useDispatch();
+	const {editingUser} = useSelector(state => state.users);
 
-	// useEffect(() => {
-	// 	showPhoto();
-	// },[])
+	const isUserEdit = JSON.stringify(editingUser) !== '{}';
 
-	// const showPhoto =  async () => {
-	// 	await get('accaunt')
-	// 		.then(res => setPhoto(res.photo))
-	// 		.catch(e => console.log(e))
-	// }
+	const standartFormValue = {
+		userName: '',
+		password: '',
+		repeatPassword: '',
+		photo: '',
+		photoData: ''
+	}
 
+	const initialValues = isUserEdit ? editingUser : standartFormValue
 
 	const SUPORTED_FORMATS = ["image/jpg", "image/jpeg", "image/png"]
 
@@ -44,31 +50,34 @@ const AccauntForm = () => {
 					.required(),
 		password: yup.string()
 					.required(),
+		repeatPassword: yup.string()
+						.oneOf([yup.ref('password'), null], 'Passwords must match')
 					
 	})
+
+
+	
 
 	return (
 		<>
 			<div className="container">
 				<div className="accaunt">
 					<Formik
-						initialValues = {{
-							userName: '',
-							password: '',
-							repeatPassword: '',
-							photo: '',
-							photoData: ''
-						}}
+						initialValues = {initialValues}
 						validationSchema = {schema}
 						onSubmit = {(values, actions) => {
-							if (values.password !== values.repeatPassword) {
-								actions.setFieldError('repeatPassword', `Password don't mutch`)
+							if (isUserEdit) {
+								usersSet(values.id, values)
+								dispatch(updateUser(values));
+								dispatch(onUserEdit({}));
+								navigate('/');
 							} else {
-								formsSet	('accaunt', values);
+								let accauntFormValueWithId = values;
+								values.id = uuidv4();
+								formsSet	('accaunt', accauntFormValueWithId);
 								dispatch(changeActiveForm('profile'));
 								actions.resetForm();
 							}
-
 						}}
 						>
 						{({setFieldValue, errors}) => (
@@ -76,7 +85,7 @@ const AccauntForm = () => {
 								<div className="accaunt-photo">
 										<div className='accaunt-photo-img'>
 											<img 
-												src={photo || avatar} 
+												src={ photo || editingUser.photo || avatar} 
 												alt="avatar" 
 												style={errors.photoData ? {border: '2px solid #EB5757'} : null}
 											/>
@@ -86,9 +95,6 @@ const AccauntForm = () => {
 												type='file'
 												id="file"
 												name="file"
-												// onChange={(event) => {
-												// 	setFieldValue('file', event.target.files[0]);
-												// }}
 												onChange={(e) => {
 													const fileReader = new FileReader();
 													fileReader.onload = () => {
@@ -132,7 +138,7 @@ const AccauntForm = () => {
 											passwordToggle={true}
 											autoComplete="off"
 										/>
-									<button className='btn btn-next' type="submit">Forward</button>
+									<button className='btn btn-next' type="submit">{isUserEdit ? 'Save' : 'Forward'}</button>
 								</div>
 							</Form>
 						)}

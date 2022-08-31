@@ -1,34 +1,16 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
-import { formsSet, formsClear } from '../../../store/idbStore';
-import { changeActiveForm } from '../../pages/AddingNewUser/addingNewUserSlice';
+import { formsSet, formsClear, usersSet } from '../../../store/idbStore';
+import { changeActiveForm, updateUser, onUserEdit } from '../../pages/AddingNewUser/addingNewUserSlice';
 import DatePicker  from 'react-datepicker'; 
 import { Formik, Form, Field } from 'formik';
+import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 
 import TextInput from '../textInput';
 
-
 import 'react-datepicker/dist/react-datepicker.css';
 import './profile.scss';
-
-// const TextInput = ({label, requaired = false, ...props}) => {
-//     const [field, meta] = useField(props);
-
-//     return (
-//         <>
-//             <div className='label'>
-//                 <label htmlFor={props.name}>{label}</label>
-//                 {requaired ? (<span>*</span>) : null}
-//             </div>
-//             <input {...props} {...field}/>
-//             {meta.initialTouched && meta.error ? (
-//                 <div className='error'>{meta.error}</div>
-//             ) : null}
-//         </>
-//     )
-// };
 
 const age = 1000 * 60 * 60 * 24 * 365 * 18;
 
@@ -50,37 +32,53 @@ const schema = yup.object({
 					"Must be 18+",
 					(value) => !value || (value && (Date.now() - value > age))
 				)
-
-				
-	
 })
+
+
 
 
 const ProfileForm = () => {
 
+	const navigate = useNavigate();
+
 	const [date, setDate] = useState();
 	const dispatch = useDispatch();
+
+	const {editingUser} = useSelector(state => state.users);
+
+	const isUserEdit = JSON.stringify(editingUser) !== '{}';
+
+	const standartFormValue = {
+		firstName: '',
+		lastName: '',
+		email: '',
+		addres: '',
+		gender: '',
+		birthday: ''
+	}
+
+	const initialValues = isUserEdit ? editingUser : standartFormValue;
+
 
 	return (
 		<div className="container">
 			<div className="profile">
 				<Formik
-					initialValues = {{
-						firstName: '',
-						lastName: '',
-						email: '',
-						addres: '',
-						gender: '',
-						birthday: ''
-					}}
+					initialValues = {initialValues}
 					onSubmit = {(values, actions) => {
-						formsSet('profile', values);
-						dispatch(changeActiveForm('contacts'))
-						actions.resetForm();
-						setDate('');
+						if(isUserEdit) {
+							usersSet(values.id, values)
+							dispatch(updateUser(values));
+							dispatch(onUserEdit({}));
+							navigate('/');
+						} else {
+							formsSet('profile', values);
+							dispatch(changeActiveForm('contacts'))
+							actions.resetForm();
+							setDate('');
+						}
 					}}
 					validationSchema={schema}
-					
 				>
 					{({setFieldValue, errors, touched}) => (
 						<Form >
@@ -167,7 +165,8 @@ const ProfileForm = () => {
 								{touched.gender && errors.gender ? (
 											<div className='error' style={{padding: 0, fontSize: '13px'}}>{errors.gender}</div>
 										) : null}
-								<button 
+								<button
+									hidden={isUserEdit}
 									type='button'
 									className='btn-back'
 									onClick={() => {
@@ -177,7 +176,7 @@ const ProfileForm = () => {
 								>
 									Back
 								</button>
-								<button className='btn' type="submit">Forward</button>
+								<button className='btn' type="submit">{isUserEdit ? 'Save' : 'Forward'}</button>
 							</div>
 						</Form>
 					)}

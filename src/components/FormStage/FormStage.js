@@ -21,8 +21,6 @@ const FormStage = () => {
             })
     },[])
 
-    console.log(nameFormInCache)
-
     const activeClass = (active) => {
         if (active === activeForm) {
             return 'stage-name active'
