@@ -1,5 +1,5 @@
 .stage {
-    margin-top: 45px;
+    margin-top: 35px;
     display: flex;
     background: #EAF1FD;
     &-name {
@@ -17,6 +17,20 @@
     .active {
         background: #4E86E4;
         color: #FFFFFF;
+    }
+}
+.back {
+    position: absolute;
+    top: -65px;
+    left: 0;
+    a {
+        color: #9BB0CB;
+        text-decoration: none;
+        span {
+            font-weight: 700;
+            font-size: 24px;
+            line-height: 28px;
+        }
     }
 }
 .continue {

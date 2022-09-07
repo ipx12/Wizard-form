@@ -1,7 +1,7 @@
 import { Formik, Form, Field } from 'formik';
 import * as yup from 'yup';
 import { formsSet, formsClear, usersSet } from '../../../store/idbStore';
-import { getAllFormsValues, changeActiveForm, updateUser, onUserEdit } from '../../pages/AddingNewUser/addingNewUserSlice';
+import { getAllFormsValues, changeActiveForm, updateUser, onUserEdit, onLastUpdate } from '../../pages/AddingNewUser/addingNewUserSlice';
 
 import { useDispatch,useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
@@ -75,8 +75,8 @@ const CapabilitiesForm = () => {
                     validationSchema={schema}
                     onSubmit = {(values, actions) => {
                         if(isUserEdit) {
-                                usersSet(values.id, values)
-								dispatch(updateUser(values));
+                                usersSet(values.id, onLastUpdate(values))
+								dispatch(updateUser(onLastUpdate(values)));
                                 dispatch(onUserEdit({}));
                         } else {
                             formsSet('capabilities', values);

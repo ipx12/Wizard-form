@@ -1,4 +1,3 @@
-import ReactDOM from "react-dom/client";
 import {
   BrowserRouter,
   Routes,
@@ -7,7 +6,7 @@ import {
 
 import AccauntList from '../pages/AccountList/AccountList';
 import AddingNewUser from '../pages/AddingNewUser/AddingNewUser';
-import UserData from '../pages/UserData/UserData';
+import UserProfile from '../pages/UserProfile/UserProfile';
 import UserEdit from "../pages/UserEdit/UserEdit";
 
 
@@ -21,7 +20,7 @@ function App() {
 				<Routes>
 					<Route path="/" element={<AccauntList />}/>
 					<Route path="/useradd" element={<AddingNewUser />}/>
-					<Route path="/userdata/:userId" element={<UserData />}/>
+					<Route path="/userdata/:userId" element={<UserProfile />}/>
 					<Route path="/useredit/:formName" element={<UserEdit />}/>
 				</Routes>
 		</BrowserRouter>

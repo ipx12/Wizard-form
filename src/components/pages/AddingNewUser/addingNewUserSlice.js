@@ -61,9 +61,15 @@ const userSlice = createSlice({
 })
 
 const createUser = (formsData) => {
-    let user = {}
+    let user = {lastUpdate: new Date()}
     formsData.forEach(form => user = {...user, ...form})
     return user;
+}
+
+export const onLastUpdate = (user) => {
+    const lastUpdateTimeUser = {...user}
+    lastUpdateTimeUser.lastUpdate = new Date();
+    return lastUpdateTimeUser;
 }
 
 const {actions} = userSlice;

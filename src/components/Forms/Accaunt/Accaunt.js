@@ -1,6 +1,7 @@
 import avatar from '../../../resources/img/avatar.svg'
+
 import { formsSet, usersSet } from '../../../store/idbStore';
-import { changeActiveForm, onUserEdit, updateUser } from '../../pages/AddingNewUser/addingNewUserSlice';
+import { changeActiveForm, onUserEdit, updateUser, onLastUpdate } from '../../pages/AddingNewUser/addingNewUserSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
@@ -19,6 +20,10 @@ const AccauntForm = () => {
 	const [photo, setPhoto] = useState(null);
 	const dispatch = useDispatch();
 	const {editingUser} = useSelector(state => state.users);
+
+	// useEffect(() => {
+	// 	dispatch(onUserEdit({}))
+	// },[])
 
 	const isUserEdit = JSON.stringify(editingUser) !== '{}';
 
@@ -55,9 +60,6 @@ const AccauntForm = () => {
 					
 	})
 
-
-	
-
 	return (
 		<>
 			<div className="container">
@@ -67,8 +69,9 @@ const AccauntForm = () => {
 						validationSchema = {schema}
 						onSubmit = {(values, actions) => {
 							if (isUserEdit) {
-								usersSet(values.id, values)
-								dispatch(updateUser(values));
+								
+								usersSet(values.id, onLastUpdate(values));
+								dispatch(updateUser(onLastUpdate(values)));
 								dispatch(onUserEdit({}));
 								navigate('/');
 							} else {

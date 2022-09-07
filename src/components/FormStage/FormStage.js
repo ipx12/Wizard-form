@@ -2,6 +2,8 @@ import { useSelector, useDispatch } from "react-redux/es/exports";
 import { useEffect, useState, useCallback } from "react";
 import { formsKeys } from "../../store/idbStore";
 import { changeActiveForm } from "../pages/AddingNewUser/addingNewUserSlice";
+import { useParams, Link } from "react-router-dom";
+
 
 
 import './formStage.scss';
@@ -9,8 +11,16 @@ import './formStage.scss';
 const FormStage = () => {
 
     const {activeForm} = useSelector(state => state.users)
+    const {id} = useSelector(state => state.users.editingUser);
+
     const [nameFormInCache, setNameFormInCache] = useState([])
     const dispatch = useDispatch();
+    const {formName} = useParams();
+
+    console.log(id)
+    
+
+    const currentActiveFromName = formName ? formName : activeForm;
 
     const formsList = ['accaunt', 'profile', 'contacts', 'capabilities'];
 
@@ -21,8 +31,8 @@ const FormStage = () => {
             })
     },[])
 
-    const activeClass = (active) => {
-        if (active === activeForm) {
+    const activeClass = (formName) => {
+        if (formName === currentActiveFromName) {
             return 'stage-name active'
         } else {
             return 'stage-name'
@@ -30,7 +40,7 @@ const FormStage = () => {
     }
 
     const continuee = useCallback(() => {
-        if (nameFormInCache.length === 0 || nameFormInCache[0] === 'accaunt' || activeForm !== 'accaunt' ) {
+        if (nameFormInCache.length === 0 || nameFormInCache[0] === 'accaunt' || currentActiveFromName !== 'accaunt' ) {
             return
         } else {
             return (
@@ -65,6 +75,9 @@ const FormStage = () => {
                 <div className={activeClass('capabilities')}>4. Capabilities</div>
             </div>
             {renderContinue}
+            <div className="back" hidden={!id}>
+				<Link to={`/userdata/${id}`}>  &lt; <span>User Profile</span> </Link>
+			</div>
         </div>
     )
 }

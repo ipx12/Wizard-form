@@ -1,4 +1,5 @@
 import { useParams } from "react-router-dom"
+import { useSelector } from "react-redux";
 
 import AccauntForm from "../../Forms/Accaunt/Accaunt";
 import ContactsForm from "../../Forms/Contacts/Contacts";
@@ -10,6 +11,8 @@ import CapabilitiesForm from '../../Forms/Capabilities/Capabilities';
 const UserEdit = () => {
 
     const {formName} = useParams();
+
+
 
 	const renderForm = () => {
 		switch(formName) {
@@ -34,6 +37,7 @@ const UserEdit = () => {
             <h2 className="pageName">Editing</h2>
             <FormStage/>
             {form}
+
         </>
     )
 }

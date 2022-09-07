@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Formik, Form } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeActiveForm, updateUser, onUserEdit } from '../../pages/AddingNewUser/addingNewUserSlice';
+import { changeActiveForm, updateUser, onUserEdit, onLastUpdate } from '../../pages/AddingNewUser/addingNewUserSlice';
 import { useNavigate } from 'react-router-dom';
 
 import { formsSet, formsDel, usersSet} from '../../../store/idbStore';
@@ -132,8 +132,8 @@ const ContactsForm = () => {
                     validationSchema = {schema}
                     onSubmit={ (values, actions) => {
                         if(isUserEdit) {
-                            usersSet(values.id, values)
-                            dispatch(updateUser(values));
+                            usersSet(values.id, onLastUpdate(values))
+                            dispatch(updateUser(onLastUpdate(values)));
                             dispatch(onUserEdit({}));
                             navigate('/');
                         } else {

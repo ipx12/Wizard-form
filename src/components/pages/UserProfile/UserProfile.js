@@ -2,7 +2,7 @@
 import Header from "../../Header/Header"
 import UserInfo from "../../UserInfo/UserInfo"
 
-const UserData = () => {
+const UserProfile = () => {
 
     return (
         <>
@@ -13,4 +13,4 @@ const UserData = () => {
     )
 }
 
-export default UserData;
+export default UserProfile;

@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { formsSet, formsClear, usersSet } from '../../../store/idbStore';
-import { changeActiveForm, updateUser, onUserEdit } from '../../pages/AddingNewUser/addingNewUserSlice';
+import { changeActiveForm, updateUser, onUserEdit, onLastUpdate } from '../../pages/AddingNewUser/addingNewUserSlice';
 import DatePicker  from 'react-datepicker'; 
 import { Formik, Form, Field } from 'formik';
 import { useNavigate } from 'react-router-dom';
@@ -67,8 +67,8 @@ const ProfileForm = () => {
 					initialValues = {initialValues}
 					onSubmit = {(values, actions) => {
 						if(isUserEdit) {
-							usersSet(values.id, values)
-							dispatch(updateUser(values));
+							usersSet(values.id, onLastUpdate(values))
+							dispatch(updateUser(onLastUpdate(values)));
 							dispatch(onUserEdit({}));
 							navigate('/');
 						} else {

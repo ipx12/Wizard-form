@@ -1,4 +1,6 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { onUserEdit } from "../pages/AddingNewUser/addingNewUserSlice";
 
 import addUser from '../../resources/icons/add_users.png'
 import usersList from '../../resources/icons/list_users.png'
@@ -7,6 +9,8 @@ import logo from '../../resources/icons/Logo.png'
 import './header.scss';
 
 const Header = () => {
+
+    const dispatch = useDispatch()
 
     let activeStyle = {
         opacity: 1,
@@ -21,6 +25,7 @@ const Header = () => {
                 <div className="users">
                     <div className="users-add">
                         <NavLink
+                            onClick={() => dispatch(onUserEdit({}))}
                             to="/useradd"
                             style={({ isActive }) =>
                                 isActive ? activeStyle : undefined

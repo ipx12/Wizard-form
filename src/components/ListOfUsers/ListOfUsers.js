@@ -9,6 +9,7 @@ import './listOfUsers.scss';
 import photo from '../../resources/img/Ellipse.png';
 import edit from '../../resources/icons/userList/Edit.png'
 import close from '../../resources/icons/userList/Close.png'
+import { date } from "yup";
 
 
 const ListOfUsers = () => {
@@ -26,6 +27,23 @@ const ListOfUsers = () => {
     useEffect(() => {
         dispatch(getAllUsers())
     },[])
+
+    const lastUpdateTime = (date) => {
+        const spendTime = Date.now() - Date.parse(date)
+
+        console.log(spendTime)
+
+        switch (true) {
+            case spendTime < 60000:
+                return 'just now'
+            case spendTime < 60000 * 5:
+                return 'few minutes ago'
+            case spendTime < 60000 * 60 * 60 * 24:
+                return 'more then 5 min ago'
+            default: return Math.floor(spendTime / 1000 / 60)
+        }
+        
+    }
 
     // console.log(users)
 
@@ -50,7 +68,7 @@ const ListOfUsers = () => {
                         <td>{user.company}</td>
                         <td>{user.phone1 !== '' ? user.phone1 : user.email}</td>
                         <td className='upd'>
-                            <div>3 month ago</div>
+                            <div>{lastUpdateTime(user.lastUpdate)}</div>
                             <div className="btns">
                                 <div className="btns-edit">
                                     <Link to={`/userdata/${user.id}`}>
