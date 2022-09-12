@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, createEntityAdapter } from "@reduxjs/toolkit";
-import { formsValues, usersSet, usersValues } from "../../../store/idbStore";
+import { formsValues, usersSet, usersValues, usersDel } from "../../../store/idbStore";
 
 
 const usersAdapter = createEntityAdapter();
@@ -36,7 +36,11 @@ const userSlice = createSlice({
             state.editingUser = action.payload;
         },
         updateUser: (state, action) => {
-            usersAdapter.setOne(state, action.payload)
+            usersAdapter.setOne(state, action.payload);
+        },
+        onDeleteUser: (state, action) => {
+            usersAdapter.removeOne(state, action.payload);
+            usersDel(action.payload);
         }
 
         
@@ -82,5 +86,6 @@ export const {
                 changeActiveForm, 
                 onUserEdit,
                 updateUser,
+                onDeleteUser,
             } = actions;
 

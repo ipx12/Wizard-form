@@ -1,45 +1,48 @@
-
+.block {
+    display: flex;
+}
 .table{
     border-spacing: 0px;
     border-collapse: collapse;
-    margin-top: 28px; 
+    margin-top: 28px;
     &-head {
         height: 45px;
         background-color: #4E86E4;
-        th {
-            text-align-last: left;
-            font-family: 'Roboto';
-            font-style: normal;
-            font-weight: 500;
-            font-size: 14px;
-            line-height: 16px;
-            color: #fff;
-        }
+        display: grid;
+        grid-template-columns: 300px 200px 270px 200px;
+        
     }
-
-    
-    width: 100%;
+    &-name, &-company, &-contacts, &-update {
+        display: flex;
+        align-items: center;
+        text-align-last: left;
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 16px;
+        color: #fff;
+    }
     &-name {
-        width: 300px;
         padding-left: 70px;
-    }
-    &-company {
-        width: 200px;
-    }
-    &-contacts {
-        width: 270px;
-    }
-    &-update {
-        width: 200px;
     }
     &__list {
         height: 93px;
-        td {
-            padding-right: 10px;
-        }
+        display: grid;
+        grid-template-columns:  300px 200px 270px 200px;
+        position: relative;
+        transition: all .3s;
     }
-    .wrapper {
+    .left {
+        transform: translateX(-70px);
+    }
+    .wrap {
         display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 16px;
+        color: #475666;
     }
     &-photo {
         margin-left: 15px;
@@ -57,7 +60,7 @@
         }
     }
     &__user {
-        margin-left: 15px;
+        margin:10px 0 0 15px;
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
@@ -74,21 +77,9 @@
             color: #475666;
         }
     }
-    tbody {
-
-        tr:nth-child(even) {
-            background-color: #E7F0FF;
-        }
-        td {
-            font-family: 'Roboto';
-            font-style: normal;
-            font-weight: 500;
-            font-size: 14px;
-            line-height: 16px;
-            color: #475666;
-        }
+    .users {
+        position: relative;
         .upd {
-            height: 93px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -97,6 +88,9 @@
                 display: flex;
                 justify-content: space-between;
                 margin-right: 16px;
+                &-delete {
+                    cursor: pointer;
+                }
                 img {
                     width: 100%;
                 }
@@ -105,10 +99,36 @@
 
 
     }
+    .confirmed {
+        position: absolute;
+        right: -70px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        transition: all 1s;
+        img {
+            cursor: pointer;
+        }
+        &-close {
+            display: flex;
+            align-items: center;
+            margin-right: 5px;
+        }
+        &-delete {
+            font-family: 'Roboto';
+            font-weight: 500;
+            font-size: 14px;
+            color: #FF8989;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+    }
     &__nouser {
         height: 430px;
         background-color: #FAFCFF;
         &-title {
+            padding-top: 150px;
             text-align: center;
             font-weight: 900;
             font-size: 35px;
@@ -122,10 +142,52 @@
         background: #5E97F3;
         margin: 65px auto 0 auto;
         text-align: center;
-        padding-top: 12px;
         color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     a {
         text-decoration: none;
     }
+    .users .table__list:nth-child(odd) {
+        background-color: #E7F0FF;
+    }
+    .users .table__list:nth-child(1) {
+        margin-top: 30px;
+    }
+    .hidden {
+        display: none;
+    }
 }
+
+.confirm-node-enter {
+    opacity: 0;
+  }
+  .confirm-node-enter-active {
+    opacity: 1;
+    transition: opacity 200ms;
+  }
+  .confirm-node-exit {
+    opacity: 1;
+  }
+  .confirm-node-exit-active {
+    opacity: 0;
+    transition: opacity 200ms;
+  }
+
+  
+  .user-node-enter {
+    opacity: 0;
+  }
+  .user-node-enter-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+  }
+  .user-node-exit {
+    opacity: 1;
+  }
+  .user-node-exit-active {
+    opacity: 0;
+    transition: opacity 500ms ease-in;
+  }
