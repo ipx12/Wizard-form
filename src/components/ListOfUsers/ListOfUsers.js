@@ -2,16 +2,11 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getAllUsers, selectAll } from "../pages/AddingNewUser/addingNewUserSlice";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
-
 
 import User from "../User/User";
 import ClipLoader from "react-spinners/ClipLoader";
 
 import './listOfUsers.scss';
-
-
-import { date } from "yup";
 
 
 const ListOfUsers = () => {
@@ -36,27 +31,17 @@ const ListOfUsers = () => {
         if (users.length !== 0) {
             returnedUsers = users.map((user) => {
                 return (
-                    <CSSTransition 
-                        key={user.id}
-                        timeout={800}
-                        classNames='user-node'>
-                        <User user={user} key={user.id}/>
-                    </CSSTransition>
+                    <User user={user} key={user.id}/>
                 )
             })
         } else {
             return (
-                <CSSTransition
-                    mountOnEnter
-                    unmountOnExit
-                    timeout={10}>
-                    <div className="table__nouser">
-                        <div className="table__nouser-title">No users here :(</div>
-                        <Link to="/useradd">
-                            <div className="table-create">Create new user</div>
-                        </Link>
-                    </div>
-                </CSSTransition>
+                <div className="table__nouser">
+                    <div className="table__nouser-title">No users here :(</div>
+                    <Link to="/useradd">
+                        <div className="table-create">Create new user</div>
+                    </Link>
+                </div>
             )
         }
 
@@ -65,13 +50,7 @@ const ListOfUsers = () => {
 
     const Clip = () => {
         return (
-            <CSSTransition
-                mountOnEnter
-                unmountOnExit
-                timeout={10}
-                classNames='user-node'>
-                <ClipLoader cssOverride={spinnerStyle}/>
-            </CSSTransition>
+            <ClipLoader cssOverride={spinnerStyle}/>
         )
     }
 
@@ -87,9 +66,7 @@ const ListOfUsers = () => {
                     <div className="table-update">last update</div>
                 </div>
                 <div className="users">
-                    <TransitionGroup>
                         {renderElements}
-                    </TransitionGroup>
                 </div>
             </div>
         </div>

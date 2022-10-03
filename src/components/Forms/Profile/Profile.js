@@ -1,18 +1,24 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
-import { formsSet, formsClear, usersSet } from '../../../store/idbStore';
-import { changeActiveForm, updateUser, onUserEdit, onLastUpdate } from '../../pages/AddingNewUser/addingNewUserSlice';
-import DatePicker  from 'react-datepicker'; 
-import { Formik, Form, Field } from 'formik';
 import { useNavigate } from 'react-router-dom';
-import * as yup from 'yup';
+import { useState } from 'react';
 
 import TextInput from '../textInput';
+import { formsSet, formsClear, usersSet } from '../../../store/idbStore';
+import { changeActiveForm, updateUser, onUserEdit, onLastUpdate } from '../../pages/AddingNewUser/addingNewUserSlice';
 
+import DatePicker  from 'react-datepicker'; 
 import 'react-datepicker/dist/react-datepicker.css';
+
+import { Formik, Form, Field } from 'formik';
+import * as yup from 'yup';
+
 import './profile.scss';
 
-const age = 1000 * 60 * 60 * 24 * 365 * 18;
+const ageCheck = (age) => {
+	return 1000 * 60 * 60 * 24 * 365 * age
+}
+
+const age = ageCheck(18);
 
 const schema = yup.object({
 	firstName: yup.string()

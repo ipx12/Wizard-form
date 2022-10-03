@@ -1,12 +1,12 @@
 import { useSelector, useDispatch } from "react-redux/es/exports";
 import { useEffect, useState, useCallback } from "react";
-import { formsKeys } from "../../store/idbStore";
-import { changeActiveForm } from "../pages/AddingNewUser/addingNewUserSlice";
 import { useParams, Link } from "react-router-dom";
 
-
+import { formsKeys } from "../../store/idbStore";
+import { changeActiveForm } from "../pages/AddingNewUser/addingNewUserSlice";
 
 import './formStage.scss';
+
 
 const FormStage = () => {
 
@@ -16,9 +16,6 @@ const FormStage = () => {
     const [nameFormInCache, setNameFormInCache] = useState([])
     const dispatch = useDispatch();
     const {formName} = useParams();
-
-    console.log(id)
-    
 
     const currentActiveFromName = formName ? formName : activeForm;
 

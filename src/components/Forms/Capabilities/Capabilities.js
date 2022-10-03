@@ -1,13 +1,14 @@
-import { Formik, Form, Field } from 'formik';
-import * as yup from 'yup';
-import { formsSet, formsClear, usersSet } from '../../../store/idbStore';
-import { getAllFormsValues, changeActiveForm, updateUser, onUserEdit, onLastUpdate } from '../../pages/AddingNewUser/addingNewUserSlice';
-
 import { useDispatch,useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 
-
+import { Formik, Form, Field } from 'formik';
+import * as yup from 'yup';
 import Select from 'react-select';
+
+import { formsSet, formsClear, usersSet } from '../../../store/idbStore';
+import { getAllFormsValues, changeActiveForm, updateUser, onUserEdit, onLastUpdate } from '../../pages/AddingNewUser/addingNewUserSlice';
+
+
 
 import './capabilities.scss';
 
@@ -38,16 +39,6 @@ const schema = yup.object({
                 .min(3, 'Minimum 3 skills'),
     area: yup.string()
         .max(300, 'Max 300 simbols')
-    //             .test(
-    //                 "FILE_FORMAT",
-    //                 "Wrong photo format",
-    //                 (value) => !value || (value && SUPORTED_FORMATS.includes(value?.type))
-    //             ),
-    // userName: yup.string()
-    //             .required(),
-    // password: yup.string()
-    //             .required(),
-                
 })
 
 
@@ -59,6 +50,7 @@ const CapabilitiesForm = () => {
     const {editingUser} = useSelector(state => state.users);
 
     const isUserEdit = JSON.stringify(editingUser) !== '{}';
+
 
 	const standartFormValue = {
         hobbies: [],

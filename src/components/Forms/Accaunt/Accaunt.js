@@ -1,17 +1,18 @@
 import avatar from '../../../resources/img/avatar.svg'
 
 import { formsSet, usersSet } from '../../../store/idbStore';
-import { changeActiveForm, onUserEdit, updateUser, onLastUpdate } from '../../pages/AddingNewUser/addingNewUserSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import { v4 as uuidv4 } from 'uuid';
-import { useNavigate } from 'react-router-dom';
-import * as yup from 'yup';
-
-import './accaunt.scss'
+import TextInput from '../textInput';
+import { changeActiveForm, onUserEdit, updateUser, onLastUpdate, selectAll } from '../../pages/AddingNewUser/addingNewUserSlice';
 
 import React, {  useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
+import { v4 as uuidv4 } from 'uuid';
+import * as yup from 'yup';
 import { Formik, Form} from 'formik';
-import TextInput from '../textInput';
+
+import './accaunt.scss'
 
 const AccauntForm = () => {
 
@@ -21,9 +22,7 @@ const AccauntForm = () => {
 	const dispatch = useDispatch();
 	const {editingUser} = useSelector(state => state.users);
 
-	// useEffect(() => {
-	// 	dispatch(onUserEdit({}))
-	// },[])
+	const existedUsersName = useSelector(selectAll).map(item => item.userName)
 
 	const isUserEdit = JSON.stringify(editingUser) !== '{}';
 
@@ -52,7 +51,12 @@ const AccauntForm = () => {
 						(value) => !value || (value && SUPORTED_FORMATS.includes(value?.type))
 					),
 		userName: yup.string()
-					.required(),
+					.required()
+					.test(
+						"USERNAME_MATCH",
+						"User name already exist",
+						(value) => !existedUsersName.includes(value) || value === editingUser.userName,
+					),
 		password: yup.string()
 					.required(),
 		repeatPassword: yup.string()

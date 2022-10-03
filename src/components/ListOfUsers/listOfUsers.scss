@@ -177,17 +177,3 @@
   }
 
   
-  .user-node-enter {
-    opacity: 0;
-  }
-  .user-node-enter-active {
-    opacity: 1;
-    transition: opacity 500ms ease-in;
-  }
-  .user-node-exit {
-    opacity: 1;
-  }
-  .user-node-exit-active {
-    opacity: 0;
-    transition: opacity 500ms ease-in;
-  }
