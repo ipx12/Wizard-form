@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/wizard-form/static/css/main.b7041d4a.css",
-    "main.js": "/wizard-form/static/js/main.058c9559.js",
-    "static/media/Roboto-Medium.ttf": "/wizard-form/static/media/Roboto-Medium.7c8d04cd831df3033c8a.ttf",
-    "static/media/Roboto-Black.ttf": "/wizard-form/static/media/Roboto-Black.cf56c1b149d0a5e8d7c6.ttf",
-    "static/media/Roboto-Bold.ttf": "/wizard-form/static/media/Roboto-Bold.f80816a5455d171f948d.ttf",
-    "static/media/bigphoto.png": "/wizard-form/static/media/bigphoto.3a0958b7a14421c62050.png",
-    "static/media/avatar.svg": "/wizard-form/static/media/avatar.30455f0946aa4f78281d1bc7fa4c0298.svg",
-    "index.html": "/wizard-form/index.html",
-    "main.b7041d4a.css.map": "/wizard-form/static/css/main.b7041d4a.css.map",
-    "main.058c9559.js.map": "/wizard-form/static/js/main.058c9559.js.map"
+    "main.css": "/Wizard-form/static/css/main.2de3caf3.css",
+    "main.js": "/Wizard-form/static/js/main.37b81ce6.js",
+    "static/media/Roboto-Medium.ttf": "/Wizard-form/static/media/Roboto-Medium.7c8d04cd831df3033c8a.ttf",
+    "static/media/Roboto-Black.ttf": "/Wizard-form/static/media/Roboto-Black.cf56c1b149d0a5e8d7c6.ttf",
+    "static/media/Roboto-Bold.ttf": "/Wizard-form/static/media/Roboto-Bold.f80816a5455d171f948d.ttf",
+    "static/media/bigphoto.png": "/Wizard-form/static/media/bigphoto.3a0958b7a14421c62050.png",
+    "static/media/avatar.svg": "/Wizard-form/static/media/avatar.30455f0946aa4f78281d1bc7fa4c0298.svg",
+    "index.html": "/Wizard-form/index.html",
+    "main.2de3caf3.css.map": "/Wizard-form/static/css/main.2de3caf3.css.map",
+    "main.37b81ce6.js.map": "/Wizard-form/static/js/main.37b81ce6.js.map"
   },
   "entrypoints": [
-    "static/css/main.b7041d4a.css",
-    "static/js/main.058c9559.js"
+    "static/css/main.2de3caf3.css",
+    "static/js/main.37b81ce6.js"
   ]
 }
