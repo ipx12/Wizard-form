@@ -2,7 +2,7 @@
   "name": "wizard-form",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://ipx12.github.io/wizard-form",
+  "homepage": "https://ipx12.github.io/",
   "dependencies": {
     "@emotion/serialize": "^1.0.4",
     "@reduxjs/toolkit": "^1.8.3",
