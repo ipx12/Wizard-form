@@ -37,7 +37,7 @@ const Header = () => {
                     </div>
                     <div className="users-list">
                         <NavLink 
-                            to="/"
+                            to="/Wizard-form"
                             style={({ isActive }) =>
                                 isActive ? activeStyle : undefined
                             }

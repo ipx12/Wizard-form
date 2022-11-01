@@ -74,7 +74,7 @@ const CapabilitiesForm = () => {
                             formsClear();
                             dispatch(changeActiveForm('accaunt'));
                         }
-                        navigate('/');
+                        navigate('/Wizard-form');
                     }}
                 >
                     {({setFieldValue, errors, touched}) => (

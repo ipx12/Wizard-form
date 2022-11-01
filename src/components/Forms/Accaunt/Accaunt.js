@@ -77,7 +77,7 @@ const AccauntForm = () => {
 								usersSet(values.id, onLastUpdate(values));
 								dispatch(updateUser(onLastUpdate(values)));
 								dispatch(onUserEdit({}));
-								navigate('/');
+								navigate('/Wizard-form');
 							} else {
 								let accauntFormValueWithId = values;
 								values.id = uuidv4();

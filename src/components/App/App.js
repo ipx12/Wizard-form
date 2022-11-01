@@ -8,6 +8,7 @@ import AccauntList from '../pages/AccountList/AccountList';
 import AddingNewUser from '../pages/AddingNewUser/AddingNewUser';
 import UserProfile from '../pages/UserProfile/UserProfile';
 import UserEdit from "../pages/UserEdit/UserEdit";
+import Page404 from "../pages/404"
 
 
 import '../../style/style.scss';
@@ -18,10 +19,11 @@ function App() {
 	return (
 		<BrowserRouter>
 				<Routes>
-					<Route path="/" element={<AccauntList />}/>
+					<Route path="/Wizard-form" element={<AccauntList />}/>
 					<Route path="/useradd" element={<AddingNewUser />}/>
 					<Route path="/userdata/:userId" element={<UserProfile />}/>
 					<Route path="/useredit/:formName" element={<UserEdit />}/>
+					<Route path="*" element={<Page404/>}/>
 				</Routes>
 		</BrowserRouter>
 

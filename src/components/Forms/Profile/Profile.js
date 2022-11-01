@@ -72,7 +72,7 @@ const ProfileForm = () => {
 							usersSet(values.id, onLastUpdate(values))
 							dispatch(updateUser(onLastUpdate(values)));
 							dispatch(onUserEdit({}));
-							navigate('/');
+							navigate('/Wizard-form');
 						} else {
 							formsSet('profile', values);
 							dispatch(changeActiveForm('contacts'))

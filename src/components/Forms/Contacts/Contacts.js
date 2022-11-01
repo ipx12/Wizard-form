@@ -132,7 +132,7 @@ const ContactsForm = () => {
                             usersSet(values.id, onLastUpdate(values))
                             dispatch(updateUser(onLastUpdate(values)));
                             dispatch(onUserEdit({}));
-                            navigate('/');
+                            navigate('/Wizard-form');
                         } else {
                             formsSet('contacts', values);
                             dispatch(changeActiveForm('capabilities'));

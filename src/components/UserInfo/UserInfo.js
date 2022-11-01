@@ -21,7 +21,7 @@ const UserInfo = () => {
         <div className="container">
             <div className="info">
                 <div className="back">
-                    <Link to='/'>  &lt; <span>Users List</span> </Link>
+                    <Link to='/Wizard-form'>  &lt; <span>Users List</span> </Link>
                 </div>
                 <div className="info__photo">
                     <div className="info__photo-item">
