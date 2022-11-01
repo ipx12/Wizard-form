@@ -24,7 +24,9 @@ const ListOfUsers = () => {
 
     useEffect(() => {
         dispatch(getAllUsers())
+    // eslint-disable-next-line
     },[])
+   
 
     const listOfUsers = () => {
         let returnedUsers = []

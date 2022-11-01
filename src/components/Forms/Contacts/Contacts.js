@@ -9,7 +9,6 @@ import * as yup from 'yup';
 import { Formik, Form } from 'formik';
 import Select from 'react-select';
 import TextInput from '../textInput';
-import { v4 as uuidv4 } from 'uuid';
 
 import './contacts.scss';
 
@@ -85,9 +84,7 @@ const ContactsForm = () => {
 	const initialValues = isUserEdit ? editingUser : standartFormValue
 
 
-    const createPhoneNumber = (times) => {
-        const id = uuidv4();
-    
+    const createPhoneNumber = (times) => {    
         const arr = [];
 
         for (let i = 0; i < times; i++) {

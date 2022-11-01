@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react"
+import { useState } from "react"
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { CSSTransition } from 'react-transition-group';
@@ -20,7 +20,7 @@ const User = (userDate) => {
 
     const userClass = deleteConfirm ?  'table__list left' : 'table__list';
 
-    const lastUpdateTime = useCallback((date) => {
+    const lastUpdateTime = (date) => {
         const spendTime = Date.now() - Date.parse(date)
 
         switch (true) {
@@ -32,13 +32,13 @@ const User = (userDate) => {
                 return 'more then 5 min'
             default: return Math.floor(spendTime / 1000 / 60)
         }
-    })
+    }
 
     return (
         <div className={userClass} key={user.id}>
             <div className="wrap">
                 <div className='table-photo'>
-                    <img src={user.photo ? user.photo : photo} alt="photo" />
+                    <img src={user.photo ? user.photo : photo} alt="Avatar" />
                 </div>
                 <div className="table__user">
                     <div className="table__user-name">{user.firstName}</div>

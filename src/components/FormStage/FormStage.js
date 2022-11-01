@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux/es/exports";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 
 import { formsKeys } from "../../store/idbStore";
@@ -26,7 +26,9 @@ const FormStage = () => {
             .then(res => {
                 setNameFormInCache(formsList.filter((_, index) => index === res.length))
             })
+    // eslint-disable-next-line
     },[])
+    
 
     const activeClass = (formName) => {
         if (formName === currentActiveFromName) {
@@ -36,7 +38,7 @@ const FormStage = () => {
         }
     }
 
-    const continuee = useCallback(() => {
+    const continuee = () => {
         if (nameFormInCache.length === 0 || nameFormInCache[0] === 'accaunt' || currentActiveFromName !== 'accaunt' ) {
             return
         } else {
@@ -59,7 +61,7 @@ const FormStage = () => {
             )
         }
 
-    })
+    }
 
     const renderContinue = continuee();
 
