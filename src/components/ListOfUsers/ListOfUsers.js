@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getAllUsers, selectAll } from "../pages/AddingNewUser/addingNewUserSlice";
 
+import { getAllUsers, selectAll } from "../pages/AddingNewUser/addingNewUserSlice";
 import User from "../User/User";
+
 import ClipLoader from "react-spinners/ClipLoader";
 
 import './listOfUsers.scss';

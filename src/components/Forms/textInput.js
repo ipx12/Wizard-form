@@ -2,10 +2,8 @@ import { useField } from "formik";
 import { useState } from "react";
 import InputMask from 'react-input-mask';
 
-
 import eye from '../../resources/icons/eye.png';
 import eyeStrike from '../../resources/icons/eye_strike.png';
-
 
 const TextInput = ({label, requaired = false, passwordToggle = false, mask = false, ...props}) => {
     const [field, meta] = useField(props);

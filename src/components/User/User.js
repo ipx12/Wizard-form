@@ -1,10 +1,9 @@
 import { useCallback, useState } from "react"
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { onDeleteUser } from "../pages/AddingNewUser/addingNewUserSlice";
 import { CSSTransition } from 'react-transition-group';
 
-
+import { onDeleteUser } from "../pages/AddingNewUser/addingNewUserSlice";
 import photo from '../../resources/img/Ellipse.png';
 import edit from '../../resources/icons/userList/Edit.png'
 import close from '../../resources/icons/userList/Close.png'

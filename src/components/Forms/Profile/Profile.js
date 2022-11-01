@@ -40,9 +40,6 @@ const schema = yup.object({
 				)
 })
 
-
-
-
 const ProfileForm = () => {
 
 	const navigate = useNavigate();
@@ -64,7 +61,6 @@ const ProfileForm = () => {
 	}
 
 	const initialValues = isUserEdit ? editingUser : standartFormValue;
-
 
 	return (
 		<div className="container">

@@ -8,10 +8,7 @@ import Select from 'react-select';
 import { formsSet, formsClear, usersSet } from '../../../store/idbStore';
 import { getAllFormsValues, changeActiveForm, updateUser, onUserEdit, onLastUpdate } from '../../pages/AddingNewUser/addingNewUserSlice';
 
-
-
 import './capabilities.scss';
-
 
 const options = [
     { value: 'HTML', label: 'HTML' },

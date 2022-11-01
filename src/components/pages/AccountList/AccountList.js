@@ -2,7 +2,6 @@ import Header from "../../Header/Header"
 import ListOfUsers from "../../ListOfUsers/ListOfUsers";
 
 
-
 const AccauntList = () => {
     return (
         <>

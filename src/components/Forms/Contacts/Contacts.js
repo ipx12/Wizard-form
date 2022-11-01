@@ -1,15 +1,12 @@
 import { useState } from 'react';
-import { Formik, Form } from 'formik';
-import { useDispatch, useSelector } from 'react-redux';
-import { changeActiveForm, updateUser, onUserEdit, onLastUpdate } from '../../pages/AddingNewUser/addingNewUserSlice';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { changeActiveForm, updateUser, onUserEdit, onLastUpdate } from '../../pages/AddingNewUser/addingNewUserSlice';
 import { formsSet, formsDel, usersSet} from '../../../store/idbStore';
 
-
 import * as yup from 'yup';
-
-
+import { Formik, Form } from 'formik';
 import Select from 'react-select';
 import TextInput from '../textInput';
 import { v4 as uuidv4 } from 'uuid';

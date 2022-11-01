@@ -1,9 +1,8 @@
-
 import Header from "../../Header/Header"
 import UserInfo from "../../UserInfo/UserInfo"
 
-const UserProfile = () => {
 
+const UserProfile = () => {
     return (
         <>
             <Header/>

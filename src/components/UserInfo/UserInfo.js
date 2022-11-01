@@ -1,9 +1,8 @@
 import { useParams } from "react-router-dom"
-import { selectAll, onUserEdit } from "../pages/AddingNewUser/addingNewUserSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
-
+import { selectAll, onUserEdit } from "../pages/AddingNewUser/addingNewUserSlice";
 import photo from '../../resources/img/bigphoto.png';
 import edit from '../../resources/icons/Edit_dark.png';
 
