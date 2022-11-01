@@ -34,7 +34,7 @@ const UserInfo = () => {
                         <div className="info__data__block__link">
                             <div>Accaunt</div>
                             <div className="info__data__block__link-icon">
-                                <Link to={`/useredit/accaunt`}
+                                <Link to={`/Wizard-form/useredit/accaunt`}
                                         onClick={() => onUserUpdate(user)}>
                                     <img src={edit} alt="edit" />
                                 </Link>
@@ -56,7 +56,7 @@ const UserInfo = () => {
                         <div className="info__data__block__link">
                             <div>Personal</div>
                             <div className="info__data__block__link-icon">
-                                <Link to={`/useredit/profile`}
+                                <Link to={`/Wizard-form/useredit/profile`}
                                         onClick={() => onUserUpdate(user)}>
                                     <img src={edit} alt="edit" />
                                 </Link>
@@ -90,7 +90,7 @@ const UserInfo = () => {
                         <div className="info__data__block__link">
                             <div>Contacts</div>
                             <div className="info__data__block__link-icon">
-                                <Link to={`/useredit/contacts`}
+                                <Link to={`/Wizard-form/useredit/contacts`}
                                         onClick={() => onUserUpdate(user)}>
                                     <img src={edit} alt="edit" />
                                 </Link>
@@ -132,7 +132,7 @@ const UserInfo = () => {
                         <div className="info__data__block__link">
                             <div>Capabilities</div>
                             <div className="info__data__block__link-icon">
-                                <Link to={`/useredit/capabilities`}
+                                <Link to={`/Wizard-form/useredit/capabilities`}
                                         onClick={() => onUserUpdate(user)}>
                                     <img src={edit} alt="edit" />
                                 </Link>

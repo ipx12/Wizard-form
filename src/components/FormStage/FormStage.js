@@ -73,7 +73,7 @@ const FormStage = () => {
             </div>
             {renderContinue}
             <div className="back" hidden={!id}>
-				<Link to={`/userdata/${id}`}>  &lt; <span>User Profile</span> </Link>
+				<Link to={`/Wizard-form/userdata/${id}`}>  &lt; <span>User Profile</span> </Link>
 			</div>
         </div>
     )

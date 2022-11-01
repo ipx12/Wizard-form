@@ -39,7 +39,7 @@ const ListOfUsers = () => {
             return (
                 <div className="table__nouser">
                     <div className="table__nouser-title">No users here :(</div>
-                    <Link to="/useradd">
+                    <Link to="/Wizard-form/useradd">
                         <div className="table-create">Create new user</div>
                     </Link>
                 </div>

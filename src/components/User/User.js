@@ -55,7 +55,7 @@ const User = (userDate) => {
                 <div>{lastUpdateTime(user.lastUpdate)}</div>
                 <div className="btns" style={deleteConfirm ? {display: 'none'}: null}>
                     <div className="btns-edit">
-                        <Link to={`/userdata/${user.id}`}>
+                        <Link to={`/Wizard-form/userdata/${user.id}`}>
                             <img src={edit} alt="edit" />
                         </Link>
                     </div>

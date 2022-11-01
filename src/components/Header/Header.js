@@ -26,7 +26,7 @@ const Header = () => {
                     <div className="users-add">
                         <NavLink
                             onClick={() => dispatch(onUserEdit({}))}
-                            to="/useradd"
+                            to="/Wizard-form/useradd"
                             style={({ isActive }) =>
                                 isActive ? activeStyle : undefined
                             }

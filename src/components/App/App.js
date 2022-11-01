@@ -20,9 +20,9 @@ function App() {
 		<BrowserRouter>
 				<Routes>
 					<Route path="/Wizard-form" element={<AccauntList />}/>
-					<Route path="/useradd" element={<AddingNewUser />}/>
-					<Route path="/userdata/:userId" element={<UserProfile />}/>
-					<Route path="/useredit/:formName" element={<UserEdit />}/>
+					<Route path="/Wizard-form/useradd" element={<AddingNewUser />}/>
+					<Route path="/Wizard-form/userdata/:userId" element={<UserProfile />}/>
+					<Route path="/Wizard-form/useredit/:formName" element={<UserEdit />}/>
 					<Route path="*" element={<Page404/>}/>
 				</Routes>
 		</BrowserRouter>
